@@ -1,0 +1,2281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact — URBANHIVE</title>
+    <link rel="shortcut icon" href="images/7494283.jpg" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ── RESET & BASE ── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "DM Mono", monospace;
+        background: #ffffff;
+      }
+      body::-webkit-scrollbar {
+        width: 6px;
+      }
+      body::-webkit-scrollbar-track {
+        background: #fff;
+      }
+      body::-webkit-scrollbar-thumb {
+        background: #c8501a;
+        border-radius: 3px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Cormorant Garamond", serif;
+      }
+      p {
+        font-family: "DM Mono", monospace;
+        font-weight: 300;
+      }
+      a {
+        text-decoration: none;
+      }
+      ul {
+        list-style: none;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      /* ── HEADER ── */
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(200, 80, 26, 0.1);
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 3rem;
+        height: 70px;
+        transition: box-shadow 0.3s;
+      }
+      .site-header.scrolled {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+      }
+      .header__brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .header__brand img {
+        height: 38px;
+        width: auto;
+      }
+      .header__brand h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: #0a0a0a;
+        text-transform: uppercase;
+      }
+      .header__nav ul {
+        display: flex;
+        gap: 2.5rem;
+      }
+      .header__nav a {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #0a0a0a;
+        position: relative;
+        padding-bottom: 2px;
+        transition: color 0.3s;
+      }
+      .header__nav a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #c8501a;
+        transition: width 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .header__nav a:hover,
+      .header__nav a.active {
+        color: #c8501a;
+      }
+      .header__nav a:hover::after,
+      .header__nav a.active::after {
+        width: 100%;
+      }
+      .header__actions {
+        display: flex;
+        gap: 1.2rem;
+        align-items: center;
+      }
+      .header__actions a {
+        color: #0a0a0a;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+      }
+      .header__actions a:hover {
+        color: #c8501a;
+      }
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 4px;
+        background: none;
+        border: none;
+      }
+      .menu-toggle span {
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        background: #0a0a0a;
+        transition: all 0.3s;
+      }
+
+      /* ── MOBILE NAV ── */
+      .mobile-nav {
+        position: fixed;
+        inset: 0;
+        background: #0a0a0a;
+        z-index: 600;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.4s,
+          visibility 0.4s;
+      }
+      .mobile-nav.open {
+        opacity: 1;
+        visibility: visible;
+      }
+      .mobile-nav a {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 3rem;
+        font-weight: 300;
+        color: #f5f0e8;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+      .mobile-nav a:hover {
+        color: #c8501a;
+      }
+      .mobile-nav__close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        font-size: 1.5rem;
+        color: #f5f0e8;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+      .mobile-nav__close:hover {
+        color: #c8501a;
+      }
+
+      /* ── TICKER ── */
+      .ticker-wrap {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #0a0a0a;
+        z-index: 499;
+        padding: 8px 0;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(200, 80, 26, 0.3);
+      }
+      .ticker-track {
+        display: flex;
+        white-space: nowrap;
+        animation: ticker 35s linear infinite;
+      }
+      .ticker-track span {
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.7);
+        padding: 0 2rem;
+      }
+      @keyframes ticker {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ═══════════════════════════════════════
+   CONTACT HERO — Black
+═══════════════════════════════════════ */
+      .contact-hero {
+        background: #0a0a0a;
+        padding: 6rem 4rem 5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .contact-hero::before {
+        content: "TALK";
+        position: absolute;
+        top: -3rem;
+        right: -2rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20rem;
+        font-weight: 600;
+        color: rgba(200, 80, 26, 0.04);
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+      }
+      /* Floating grid lines decoration */
+      .contact-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(200, 80, 26, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(200, 80, 26, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+      }
+      .contact-hero__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      .contact-hero__eyebrow {
+        font-size: 9px;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: #c8501a;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1.2rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s 0.8s ease;
+      }
+      .contact-hero__eyebrow::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: #c8501a;
+      }
+      .contact-hero__title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(3.5rem, 8vw, 8rem);
+        font-weight: 300;
+        line-height: 0.92;
+        color: #f5f0e8;
+        letter-spacing: -0.02em;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.5s 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .contact-hero__title em {
+        font-style: italic;
+        color: #c8501a;
+      }
+      .contact-hero__sub {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.45);
+        margin-top: 1.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s 1.2s ease;
+      }
+      .contact-hero.loaded .contact-hero__eyebrow,
+      .contact-hero.loaded .contact-hero__title,
+      .contact-hero.loaded .contact-hero__sub {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Vertical side label */
+      .contact-hero__side {
+        position: absolute;
+        right: 4rem;
+        top: 50%;
+        transform: translateY(-50%);
+        writing-mode: vertical-rl;
+        font-size: 8px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.18);
+        z-index: 1;
+      }
+
+      /* ═══════════════════════════════════════
+   QUICK CONNECT STRIP — Burnt orange
+═══════════════════════════════════════ */
+      .quick-connect {
+        background: #c8501a;
+        padding: 0;
+        overflow: hidden;
+      }
+      .quick-connect__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .qc-item {
+        padding: 2.5rem 2.5rem;
+        border-right: 1px solid rgba(245, 240, 232, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        transition: background 0.3s;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .qc-item:last-child {
+        border-right: none;
+      }
+      .qc-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .qc-item__icon {
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(245, 240, 232, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #f5f0e8;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+        transition:
+          background 0.3s,
+          border-color 0.3s;
+      }
+      .qc-item:hover .qc-item__icon {
+        background: rgba(245, 240, 232, 0.15);
+        border-color: rgba(245, 240, 232, 0.6);
+      }
+
+      .qc-item__label {
+        font-size: 7px;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.6);
+        margin-bottom: 0.3rem;
+      }
+      .qc-item__value {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.15rem;
+        font-weight: 300;
+        color: #f5f0e8;
+        line-height: 1.3;
+      }
+
+      /* ═══════════════════════════════════════
+   CONTACT BODY — Two column
+═══════════════════════════════════════ */
+      .contact-body {
+        background: #ffffff;
+        padding: 7rem 4rem;
+      }
+      .contact-body__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 6rem;
+        align-items: start;
+      }
+
+      /* Left column — info */
+
+      .section-label {
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #c8501a;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        margin-bottom: 1.5rem;
+      }
+      .section-label::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: #c8501a;
+      }
+      .contact-info-col__heading {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 4vw, 4rem);
+        font-weight: 300;
+        line-height: 1.05;
+        color: #0a0a0a;
+      }
+      .contact-info-col__heading em {
+        font-style: italic;
+        color: #c8501a;
+      }
+      .contact-info-col__body {
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        line-height: 2.1;
+        color: #6b6560;
+        margin-top: 1.5rem;
+        max-width: 340px;
+      }
+
+      /* Info cards */
+      .info-cards {
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .info-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.2rem;
+        padding: 1.5rem 1.5rem;
+        border: 1px solid rgba(10, 10, 10, 0.06);
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+          box-shadow 0.4s,
+          border-color 0.3s;
+        text-decoration: none;
+      }
+      .info-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(200, 80, 26, 0.08);
+        border-color: rgba(200, 80, 26, 0.25);
+      }
+      .info-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #c8501a;
+        transition: width 0.4s ease;
+      }
+      .info-card:hover::before {
+        width: 100%;
+      }
+      .info-card__icon {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        background: rgba(200, 80, 26, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c8501a;
+        font-size: 0.95rem;
+        transition: background 0.3s;
+      }
+      .info-card:hover .info-card__icon {
+        background: #c8501a;
+        color: #fff;
+      }
+      .info-card__label {
+        font-size: 8px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #9a9590;
+        margin-bottom: 0.4rem;
+      }
+      .info-card__value {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        font-weight: 300;
+        color: #0a0a0a;
+        line-height: 1.4;
+      }
+
+      /* Social row */
+      .contact-socials {
+        margin-top: 2.5rem;
+      }
+      .contact-socials__label {
+        font-size: 8px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #9a9590;
+        margin-bottom: 1rem;
+      }
+      .contact-socials__row {
+        display: flex;
+        gap: 0.8rem;
+      }
+      .social-btn {
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(10, 10, 10, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6b6560;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+      .social-btn:hover {
+        background: #c8501a;
+        border-color: #c8501a;
+        color: #fff;
+        transform: translateY(-2px);
+      }
+
+      /* Hours block */
+      .hours-block {
+        margin-top: 2.5rem;
+        padding: 1.5rem;
+        background: #f8f5f1;
+        border-left: 3px solid #c8501a;
+      }
+      .hours-block__title {
+        font-size: 8px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #c8501a;
+        margin-bottom: 1rem;
+      }
+      .hours-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.4rem 0;
+        border-bottom: 1px solid rgba(10, 10, 10, 0.05);
+      }
+      .hours-row:last-child {
+        border: none;
+      }
+      .hours-day {
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        color: #6b6560;
+      }
+      .hours-time {
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        color: #0a0a0a;
+      }
+
+      /* ── RIGHT COLUMN — FORM ── */
+
+      .form-header {
+        margin-bottom: 2.5rem;
+      }
+      .form-header__title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2rem, 3vw, 3rem);
+        font-weight: 300;
+        color: #0a0a0a;
+        line-height: 1.1;
+      }
+      .form-header__title em {
+        font-style: italic;
+        color: #c8501a;
+      }
+      .form-header__sub {
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        line-height: 1.9;
+        color: #6b6560;
+        margin-top: 0.8rem;
+      }
+
+      /* Form elements */
+      .cf-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      .cf-grid.full {
+        grid-template-columns: 1fr;
+      }
+      .cf-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .cf-field.full {
+        grid-column: 1/-1;
+      }
+      .cf-label {
+        font-size: 8px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #9a9590;
+      }
+      .cf-input,
+      .cf-select,
+      .cf-textarea {
+        background: #f8f5f1;
+        border: 1px solid rgba(10, 10, 10, 0.06);
+        color: #0a0a0a;
+        padding: 0.9rem 1.1rem;
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+        outline: none;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+        width: 100%;
+        appearance: none;
+      }
+      .cf-input:focus,
+      .cf-select:focus,
+      .cf-textarea:focus {
+        border-color: #c8501a;
+        background: #fff;
+      }
+      .cf-input::placeholder,
+      .cf-textarea::placeholder {
+        color: #9a9590;
+      }
+      .cf-select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239A9590'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 2.5rem;
+        cursor: pointer;
+      }
+      .cf-select option {
+        background: #fff;
+        color: #0a0a0a;
+      }
+      .cf-textarea {
+        resize: vertical;
+        min-height: 130px;
+      }
+
+      /* Character counter */
+      .cf-footer-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 0.3rem;
+      }
+      .cf-char-count {
+        font-size: 8px;
+        letter-spacing: 0.1em;
+        color: #9a9590;
+      }
+
+      /* Submit button */
+      .cf-submit {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        background: #c8501a;
+        color: #f5f0e8;
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        padding: 1.1rem 2.5rem;
+        border: 1px solid #c8501a;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+        width: 100%;
+        justify-content: center;
+        margin-top: 1.2rem;
+      }
+      .cf-submit:hover {
+        background: transparent;
+        color: #c8501a;
+      }
+      .cf-submit .arr {
+        transition: transform 0.3s;
+      }
+      .cf-submit:hover .arr {
+        transform: translateX(6px);
+      }
+      .cf-submit:disabled {
+        background: #f8f5f1;
+        border-color: rgba(10, 10, 10, 0.1);
+        color: #9a9590;
+        cursor: not-allowed;
+      }
+      .cf-submit:disabled .arr {
+        display: none;
+      }
+
+      /* Success state */
+      .form-success {
+        display: none;
+        text-align: center;
+        padding: 4rem 2rem;
+      }
+      .form-success.show {
+        display: block;
+      }
+      .form-success__icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: rgba(200, 80, 26, 0.1);
+        border: 2px solid #c8501a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c8501a;
+        font-size: 1.4rem;
+        margin: 0 auto 1.5rem;
+      }
+      .form-success__title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: #0a0a0a;
+        margin-bottom: 0.8rem;
+      }
+      .form-success__title em {
+        font-style: italic;
+        color: #c8501a;
+      }
+      .form-success__body {
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        line-height: 2;
+        color: #6b6560;
+      }
+      .form-success__back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-top: 2rem;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #0a0a0a;
+        border-bottom: 1px solid rgba(10, 10, 10, 0.2);
+        padding-bottom: 2px;
+        transition:
+          color 0.3s,
+          border-color 0.3s;
+        cursor: pointer;
+        background: none;
+        border-left: none;
+        border-top: none;
+        border-right: none;
+      }
+      .form-success__back:hover {
+        color: #c8501a;
+        border-color: #c8501a;
+      }
+
+      /* ═══════════════════════════════════════
+   MAP / LOCATION STRIP — Charcoal
+═══════════════════════════════════════ */
+      .location-strip {
+        background: #111111;
+        padding: 6rem 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .location-strip::before {
+        content: '"';
+        position: absolute;
+        bottom: -6rem;
+        right: -2rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 30rem;
+        font-weight: 300;
+        color: rgba(200, 80, 26, 0.04);
+        line-height: 1;
+        pointer-events: none;
+      }
+      .location-strip__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+      }
+      .location-strip .section-label {
+        color: #c8501a;
+      }
+      .location-strip .section-label::before {
+        background: #c8501a;
+      }
+      .location-strip__heading {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 4vw, 4rem);
+        font-weight: 300;
+        color: #f5f0e8;
+        line-height: 1.05;
+      }
+      .location-strip__heading em {
+        font-style: italic;
+        color: #c8501a;
+      }
+      .location-strip__body {
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        line-height: 2.1;
+        color: rgba(245, 240, 232, 0.5);
+        margin-top: 1.5rem;
+      }
+
+      .location-details {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 2.5rem;
+      }
+      .loc-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.2rem;
+        border: 1px solid rgba(200, 80, 26, 0.12);
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .loc-row:hover {
+        border-color: rgba(200, 80, 26, 0.35);
+        background: rgba(200, 80, 26, 0.04);
+      }
+      .loc-row__icon {
+        color: #c8501a;
+        width: 16px;
+        text-align: center;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+      }
+      .loc-row__text {
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        color: rgba(245, 240, 232, 0.6);
+        line-height: 1.5;
+      }
+      .loc-row__text span {
+        color: #f5f0e8;
+      }
+
+      /* Map placeholder */
+      .map-container {
+        position: relative;
+        aspect-ratio: 4/3;
+        background: #1a1a1a;
+        border: 1px solid rgba(200, 80, 26, 0.2);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        filter: grayscale(1) invert(1) contrast(0.85);
+        opacity: 0.7;
+        transition: opacity 0.3s;
+      }
+      .map-container:hover iframe {
+        opacity: 0.9;
+      }
+      .map-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        border: 2px solid rgba(200, 80, 26, 0.3);
+      }
+      .map-pin {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+        width: 36px;
+        height: 36px;
+        background: #c8501a;
+        border-radius: 50% 50% 50% 0;
+        rotate: -45deg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(200, 80, 26, 0.5);
+        animation: pinPulse 2s ease-in-out infinite;
+        pointer-events: none;
+      }
+      .map-pin i {
+        rotate: 45deg;
+        color: #fff;
+        font-size: 0.7rem;
+      }
+      @keyframes pinPulse {
+        0%,
+        100% {
+          box-shadow: 0 4px 20px rgba(200, 80, 26, 0.5);
+        }
+        50% {
+          box-shadow: 0 4px 40px rgba(200, 80, 26, 0.9);
+        }
+      }
+
+      /* ═══════════════════════════════════════
+   FAQ STRIP  — Cream
+═══════════════════════════════════════ */
+      .contact-faq {
+        background: #f8f5f1;
+        padding: 6rem 4rem;
+      }
+      .contact-faq__inner {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .contact-faq__header {
+        margin-bottom: 3.5rem;
+      }
+      .contact-faq__heading {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 4vw, 4rem);
+        font-weight: 300;
+        color: #0a0a0a;
+        line-height: 1.05;
+      }
+      .contact-faq__heading em {
+        font-style: italic;
+        color: #c8501a;
+      }
+
+      .faq-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .faq-item {
+        border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+      }
+      .faq-item:first-child {
+        border-top: 1px solid rgba(10, 10, 10, 0.08);
+      }
+      .faq-btn {
+        width: 100%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.6rem 0;
+        gap: 1rem;
+        text-align: left;
+      }
+      .faq-btn:hover .faq-question {
+        color: #c8501a;
+      }
+      .faq-num {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: #c8501a;
+        flex-shrink: 0;
+      }
+      .faq-question {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.35rem;
+        font-weight: 400;
+        color: #0a0a0a;
+        flex: 1;
+        transition: color 0.3s;
+      }
+      .faq-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid rgba(10, 10, 10, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0a0a0a;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        transition:
+          background 0.3s,
+          border-color 0.3s,
+          transform 0.3s,
+          color 0.3s;
+      }
+      .faq-item.open .faq-icon {
+        background: #c8501a;
+        border-color: #c8501a;
+        color: #fff;
+        transform: rotate(45deg);
+      }
+      .faq-body {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.5s cubic-bezier(0.76, 0, 0.24, 1),
+          padding 0.4s ease;
+        padding: 0 0 0 2rem;
+      }
+      .faq-item.open .faq-body {
+        max-height: 300px;
+        padding: 0 0 1.6rem 2rem;
+      }
+      .faq-body p {
+        font-size: 11px;
+        line-height: 2;
+        color: #6b6560;
+        letter-spacing: 0.04em;
+      }
+
+      /* ═══════════════════════════════════════
+   FOOTER  — Black
+═══════════════════════════════════════ */
+      .uh-footer {
+        background: #0a0a0a;
+        color: #f5f0e8;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+      .uh-footer::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .uh-footer > * {
+        position: relative;
+        z-index: 1;
+      }
+      .uh-marquee-wrap {
+        border-bottom: 1px solid rgba(200, 80, 26, 0.22);
+        overflow: hidden;
+        padding: 14px 0;
+        background: rgba(200, 80, 26, 0.06);
+      }
+      .uh-marquee {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 22s linear infinite;
+      }
+      .uh-marquee span {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #c8501a;
+        padding: 0 3rem;
+      }
+      .uh-marquee span::before {
+        content: "✦";
+        margin-right: 3rem;
+        opacity: 0.5;
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .uh-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        padding: 4rem 3rem 3rem;
+        gap: 2rem;
+        border-bottom: 1px solid rgba(200, 80, 26, 0.22);
+      }
+      .uh-col h6 {
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: #c8501a;
+        margin-bottom: 1.8rem;
+      }
+      .uh-col ul li {
+        margin-bottom: 0.9rem;
+        overflow: hidden;
+      }
+      .uh-col ul li a {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: #f5f0e8;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s;
+        position: relative;
+      }
+      .uh-col ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #c8501a;
+        transition: width 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .uh-col ul li a:hover {
+        color: #c8501a;
+      }
+      .uh-col ul li a:hover::after {
+        width: 100%;
+      }
+      .uh-col ul li a .arr {
+        opacity: 0;
+        transform: translateX(-6px);
+        font-size: 0.65rem;
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+      }
+      .uh-col ul li a:hover .arr {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .uh-wordmark {
+        padding: 2rem 3rem 0;
+        overflow: hidden;
+        line-height: 1;
+        position: relative;
+      }
+      .uh-wordmark::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 10%;
+        width: 50%;
+        height: 80%;
+        background: radial-gradient(
+          ellipse,
+          rgba(200, 80, 26, 0.08),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .uh-wordmark h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        font-size: clamp(5rem, 14vw, 14rem);
+        letter-spacing: -0.02em;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(245, 240, 232, 0.12);
+        text-transform: uppercase;
+        line-height: 0.88;
+        animation: revealWordmark 1.4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        transform: translateY(100%);
+        display: block;
+        user-select: none;
+      }
+      @keyframes revealWordmark {
+        to {
+          transform: translateY(0);
+        }
+      }
+      .uh-wordmark h1 .char {
+        display: inline-block;
+        transition:
+          color 0.2s,
+          -webkit-text-stroke 0.2s;
+        cursor: default;
+      }
+      .uh-wordmark h1:hover .char:hover {
+        color: #c8501a;
+        -webkit-text-stroke: 1px #c8501a;
+      }
+      .uh-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 3rem 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .uh-copy {
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #6b6560;
+      }
+      .uh-copy em {
+        color: #c8501a;
+        font-style: normal;
+      }
+      .uh-socials {
+        display: flex;
+        gap: 1.8rem;
+      }
+      .uh-socials a {
+        color: #6b6560;
+        font-size: 0.85rem;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .uh-socials a::before {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #c8501a;
+        transition: transform 0.3s;
+      }
+      .uh-socials a:hover {
+        color: #c8501a;
+      }
+      .uh-socials a:hover::before {
+        transform: translateX(-50%) scaleX(1);
+      }
+      .uh-tagline {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 0.9rem;
+        color: #6b6560;
+      }
+      .uh-fade-up {
+        opacity: 0;
+        transform: translateY(24px);
+        animation: fadeUp 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+      }
+      .uh-main .uh-col:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .uh-main .uh-col:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .uh-main .uh-col:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .uh-divider {
+        display: block;
+        width: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          #c8501a,
+          rgba(200, 80, 26, 0.3),
+          transparent
+        );
+        animation: lineExpand 1.2s 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        margin: 0 3rem;
+      }
+      @keyframes lineExpand {
+        to {
+          width: calc(100% - 6rem);
+        }
+      }
+
+      /* ── SHARED ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.9s cubic-bezier(0.76, 0, 0.24, 1),
+          transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-30px);
+        transition:
+          opacity 0.9s cubic-bezier(0.76, 0, 0.24, 1),
+          transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(30px);
+        transition:
+          opacity 0.9s cubic-bezier(0.76, 0, 0.24, 1),
+          transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .reveal-left.visible,
+      .reveal-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 1024px) {
+        .contact-body__inner {
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+        .location-strip__inner {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .quick-connect__inner {
+          grid-template-columns: 1fr;
+        }
+        .qc-item {
+          border-right: none;
+          border-bottom: 1px solid rgba(245, 240, 232, 0.15);
+        }
+        .qc-item:last-child {
+          border-bottom: none;
+        }
+      }
+      @media (max-width: 768px) {
+        .site-header {
+          padding: 0 1.5rem;
+        }
+        .header__nav {
+          display: none;
+        }
+        .menu-toggle {
+          display: flex;
+        }
+        .contact-hero {
+          padding: 4rem 2rem 3.5rem;
+        }
+        .contact-hero__side {
+          display: none;
+        }
+        .contact-body {
+          padding: 5rem 2rem;
+        }
+        .location-strip {
+          padding: 5rem 2rem;
+        }
+        .contact-faq {
+          padding: 5rem 2rem;
+        }
+        .uh-main {
+          grid-template-columns: 1fr 1fr;
+          padding: 3rem 1.5rem 2rem;
+        }
+        .uh-bottom {
+          padding: 1.5rem;
+        }
+        .uh-divider {
+          margin: 0 1.5rem;
+        }
+        .cf-grid {
+          grid-template-columns: 1fr;
+        }
+        .cf-field.full {
+          grid-column: 1;
+        }
+      }
+      @media (max-width: 480px) {
+        .uh-main {
+          grid-template-columns: 1fr;
+        }
+        .uh-bottom {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .contact-body__inner {
+          gap: 3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOADER -->
+    <div class="loader" id="loader">
+      <div class="loader__word" id="loaderWord">URBANHIVE</div>
+      <p class="loader__sub">Get in Touch</p>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav__close" id="mobileClose">✕</button>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="shop.html">Shop</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header" id="header">
+      <div class="header__brand">
+        <img src="images/logo.png" alt="UrbanHive" />
+        <h1>URBANHIVE</h1>
+      </div>
+      <nav class="header__nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header__actions">
+        <a href="shop.html"><i class="far fa-heart"></i></a>
+        <a href="shop.html"><i class="fas fa-shopping-bag"></i></a>
+        <button class="menu-toggle" id="menuToggle">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap">
+      <div class="ticker-track" id="tickerTrack">
+        <span>📍 Lagos, Nigeria · Serving all 36 states &nbsp;·&nbsp;</span>
+        <span>💬 DM us on WhatsApp or Instagram &nbsp;·&nbsp;</span>
+        <span>📞 Available Mon–Sat, 9AM–8PM &nbsp;·&nbsp;</span>
+        <span>✨ Responses within 24 hours &nbsp;·&nbsp;</span>
+        <span>📍 Lagos, Nigeria · Serving all 36 states &nbsp;·&nbsp;</span>
+        <span>💬 DM us on WhatsApp or Instagram &nbsp;·&nbsp;</span>
+        <span>📞 Available Mon–Sat, 9AM–8PM &nbsp;·&nbsp;</span>
+        <span>✨ Responses within 24 hours &nbsp;·&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     HERO — Black
+═══════════════════════════════════════ -->
+    <section class="contact-hero" id="contactHero">
+      <div class="contact-hero__inner">
+        <p class="contact-hero__eyebrow">Lagos, Nigeria · 2025</p>
+        <h1 class="contact-hero__title">Let's get<br />in <em>touch.</em></h1>
+        <p class="contact-hero__sub">
+          We respond within 24 hours · Mon–Sat, 9AM–8PM
+        </p>
+      </div>
+      <p class="contact-hero__side">UrbanHive · Contact · Support</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     QUICK CONNECT STRIP — Burnt orange
+═══════════════════════════════════════ -->
+    <div class="quick-connect">
+      <div class="quick-connect__inner">
+        <a href="https://wa.me/2347059942740" class="qc-item" target="_blank">
+          <div class="qc-item__icon"><i class="fab fa-whatsapp"></i></div>
+          <div class="qc-item__text">
+            <div class="qc-item__label">WhatsApp</div>
+            <div class="qc-item__value">+234 705 994 2740</div>
+          </div>
+        </a>
+        <a
+          href="https://instagram.com/urbanhive.clothing.store"
+          class="qc-item"
+          target="_blank"
+        >
+          <div class="qc-item__icon"><i class="fab fa-instagram"></i></div>
+          <div class="qc-item__text">
+            <div class="qc-item__label">Instagram</div>
+            <div class="qc-item__value">@urbanhive.clothing.store</div>
+          </div>
+        </a>
+        <a href="mailto:hello@urbanhive.ng" class="qc-item">
+          <div class="qc-item__icon"><i class="fas fa-envelope"></i></div>
+          <div class="qc-item__text">
+            <div class="qc-item__label">Email</div>
+            <div class="qc-item__value">hello@urbanhive.ng</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     CONTACT BODY — White, two-column
+═══════════════════════════════════════ -->
+    <section class="contact-body">
+      <div class="contact-body__inner">
+        <!-- LEFT: Info column -->
+        <div class="contact-info-col">
+          <p class="section-label reveal">Reach Us</p>
+          <h2 class="contact-info-col__heading reveal reveal-delay-1">
+            We'd love to<br /><em>hear from you.</em>
+          </h2>
+          <p class="contact-info-col__body reveal reveal-delay-2">
+            Whether you have a question about your order, want to collaborate,
+            or just want to say hi — we're always here. Reach us through any of
+            the channels below.
+          </p>
+
+          <div class="info-cards">
+            <a
+              href="tel:+2348001234567"
+              class="info-card reveal reveal-delay-1"
+            >
+              <div class="info-card__icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div>
+                <div class="info-card__label">Phone</div>
+                <div class="info-card__value">
+                  +234 800 123 4567<br />+234 700 987 6543
+                </div>
+              </div>
+            </a>
+            <a
+              href="mailto:hello@urbanhive.ng"
+              class="info-card reveal reveal-delay-2"
+            >
+              <div class="info-card__icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <div class="info-card__label">Email</div>
+                <div class="info-card__value">
+                  hello@urbanhive.ng<br />support@urbanhive.ng
+                </div>
+              </div>
+            </a>
+            <div class="info-card reveal reveal-delay-3">
+              <div class="info-card__icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <div class="info-card__label">Location</div>
+                <div class="info-card__value">
+                  12 Urban Street,<br />Lagos, Nigeria
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Business Hours -->
+          <div class="hours-block reveal">
+            <div class="hours-block__title">Business Hours</div>
+            <div class="hours-row">
+              <span class="hours-day">Monday – Friday</span
+              ><span class="hours-time">9:00 AM – 8:00 PM</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Saturday</span
+              ><span class="hours-time">10:00 AM – 6:00 PM</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Sunday</span
+              ><span class="hours-time">Closed</span>
+            </div>
+          </div>
+
+          <!-- Socials -->
+          <div class="contact-socials reveal">
+            <div class="contact-socials__label">Find us on social media</div>
+            <div class="contact-socials__row">
+              <a href="#" class="social-btn"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/urbanhive.clothing.store"
+                target="_blank"
+                class="social-btn"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="social-btn"><i class="fab fa-tiktok"></i></a>
+              <a
+                href="https://wa.me/2347059942740"
+                target="_blank"
+                class="social-btn"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+              <a href="#" class="social-btn"
+                ><i class="fab fa-x-twitter"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form column -->
+        <div class="contact-form-col">
+          <div class="form-header reveal">
+            <p class="section-label">Send a Message</p>
+            <h2 class="form-header__title">Drop us a<br /><em>note.</em></h2>
+            <p class="form-header__sub">
+              Fill in the form and we'll get back to you within 24 hours.
+            </p>
+          </div>
+
+          <!-- THE FORM -->
+          <form
+            id="contactForm"
+            action="send_mail.php"
+            method="POST"
+            novalidate
+          >
+            <div class="cf-grid">
+              <div class="cf-field">
+                <label class="cf-label">Inquiry Type *</label>
+                <select
+                  name="inquiry_type"
+                  class="cf-select"
+                  id="f-inquiry"
+                  required
+                >
+                  <option value="">Select type</option>
+                  <option value="order">Order Issue</option>
+                  <option value="return">Return or Refund</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="collab">Collaboration</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="cf-field">
+                <label class="cf-label">I am a... *</label>
+                <select
+                  name="user_type"
+                  class="cf-select"
+                  id="f-usertype"
+                  required
+                >
+                  <option value="">Select</option>
+                  <option value="customer">Customer</option>
+                  <option value="brand">Brand Rep</option>
+                  <option value="collab">Collaborator</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="cf-grid" style="margin-top: 1rem">
+              <div class="cf-field">
+                <label class="cf-label">Full Name *</label>
+                <input
+                  type="text"
+                  name="fullname"
+                  class="cf-input"
+                  id="f-name"
+                  placeholder="Your full name"
+                  required
+                />
+              </div>
+              <div class="cf-field">
+                <label class="cf-label">Email Address *</label>
+                <input
+                  type="email"
+                  name="email"
+                  class="cf-input"
+                  id="f-email"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="cf-grid" style="margin-top: 1rem">
+              <div class="cf-field">
+                <label class="cf-label">Phone Number *</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  class="cf-input"
+                  id="f-phone"
+                  placeholder="+234 000 000 0000"
+                  required
+                />
+              </div>
+              <div class="cf-field">
+                <label class="cf-label"
+                  >Organization
+                  <span
+                    style="
+                      color: #9a9590;
+                      font-size: 7px;
+                      letter-spacing: 0.1em;
+                    "
+                    >(optional)</span
+                  ></label
+                >
+                <input
+                  type="text"
+                  name="organization"
+                  class="cf-input"
+                  placeholder="Company or brand name"
+                />
+              </div>
+            </div>
+
+            <div style="margin-top: 1rem">
+              <div class="cf-field">
+                <label class="cf-label">Your Message *</label>
+                <textarea
+                  name="message"
+                  class="cf-textarea"
+                  id="f-message"
+                  placeholder="Tell us what's on your mind..."
+                  rows="5"
+                  maxlength="800"
+                  required
+                ></textarea>
+                <div class="cf-footer-row">
+                  <span
+                    style="
+                      font-size: 8px;
+                      letter-spacing: 0.08em;
+                      color: rgba(154, 149, 144, 0.6);
+                    "
+                    >* Required fields</span
+                  >
+                  <span class="cf-char-count"
+                    ><span id="charCount">0</span> / 800</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="cf-submit" id="submitBtn">
+              Send Message <span class="arr">→</span>
+            </button>
+          </form>
+
+          <!-- SUCCESS STATE -->
+          <div class="form-success" id="formSuccess">
+            <div class="form-success__icon"><i class="fas fa-check"></i></div>
+            <h3 class="form-success__title">Message <em>sent!</em></h3>
+            <p class="form-success__body">
+              Thank you for reaching out. We've received your message and will
+              get back to you within 24 hours.<br /><br />
+              In the meantime, feel free to DM us on Instagram or WhatsApp for a
+              faster response.
+            </p>
+            <button class="form-success__back" onclick="resetForm()">
+              ← Send another message
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     LOCATION STRIP — Charcoal
+═══════════════════════════════════════ -->
+    <section class="location-strip">
+      <div class="location-strip__inner">
+        <div>
+          <p class="section-label reveal" style="color: #c8501a">Find Us</p>
+          <h2 class="location-strip__heading reveal reveal-delay-1">
+            Based in<br /><em>Lagos.</em>
+          </h2>
+          <p class="location-strip__body reveal reveal-delay-2">
+            We operate fully online, delivering luxury across all 36 states of
+            Nigeria. While we don't have a walk-in store, our team is always
+            reachable through the channels listed below.
+          </p>
+          <div class="location-details">
+            <div class="loc-row reveal reveal-delay-1">
+              <div class="loc-row__icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="loc-row__text">
+                <span>12 Urban Street</span>, Lagos, Nigeria
+              </div>
+            </div>
+            <div class="loc-row reveal reveal-delay-2">
+              <div class="loc-row__icon">
+                <i class="fas fa-shipping-fast"></i>
+              </div>
+              <div class="loc-row__text">
+                Nationwide delivery — <span>all 36 states covered</span>
+              </div>
+            </div>
+            <div class="loc-row reveal reveal-delay-3">
+              <div class="loc-row__icon"><i class="fas fa-clock"></i></div>
+              <div class="loc-row__text">
+                Online Mon–Sat · <span>9AM–8PM WAT</span>
+              </div>
+            </div>
+            <a
+              href="https://wa.me/2347059942740"
+              target="_blank"
+              class="loc-row reveal"
+              style="text-decoration: none; cursor: pointer"
+            >
+              <div class="loc-row__icon"><i class="fab fa-whatsapp"></i></div>
+              <div class="loc-row__text">
+                WhatsApp us — <span>+234 705 994 2740</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="map-container reveal reveal-delay-2">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253682.46966657!2d3.1438710316773444!3d6.548055498560929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d9cb!2sLagos!5e0!3m2!1sen!2sng!4v1700000000000"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Lagos, Nigeria map"
+          >
+          </iframe>
+          <div class="map-overlay"></div>
+          <div class="map-pin"><i class="fas fa-store"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     FAQ — Cream
+═══════════════════════════════════════ -->
+    <section class="contact-faq">
+      <div class="contact-faq__inner">
+        <div class="contact-faq__header">
+          <p class="section-label reveal">Support</p>
+          <h2 class="contact-faq__heading reveal reveal-delay-1">
+            Common<br /><em>Questions</em>
+          </h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item open reveal">
+            <button class="faq-btn">
+              <span class="faq-num">01</span
+              ><span class="faq-question">How quickly will you respond?</span
+              ><span class="faq-icon">+</span>
+            </button>
+            <div class="faq-body">
+              <p>
+                We aim to respond to all messages within 24 hours. For fastest
+                responses, WhatsApp or Instagram DMs are the quickest channels —
+                we're most active there.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item reveal reveal-delay-1">
+            <button class="faq-btn">
+              <span class="faq-num">02</span
+              ><span class="faq-question"
+                >I have an issue with my order. What should I do?</span
+              ><span class="faq-icon">+</span>
+            </button>
+            <div class="faq-body">
+              <p>
+                Contact us via WhatsApp with your order details and we'll
+                resolve it immediately. Include your name, order item, and a
+                brief description of the issue.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item reveal reveal-delay-2">
+            <button class="faq-btn">
+              <span class="faq-num">03</span
+              ><span class="faq-question"
+                >Do you accept collaboration or partnership requests?</span
+              ><span class="faq-icon">+</span>
+            </button>
+            <div class="faq-body">
+              <p>
+                Yes! We love working with creators, brands, and stylists who
+                share our vision. Use the form above and select "Partnership" or
+                "Collaboration" as your inquiry type.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item reveal reveal-delay-3">
+            <button class="faq-btn">
+              <span class="faq-num">04</span
+              ><span class="faq-question"
+                >How do I return or exchange an item?</span
+              ><span class="faq-icon">+</span>
+            </button>
+            <div class="faq-body">
+              <p>
+                Returns are accepted within 7 days of delivery. Items must be
+                unused in original packaging. Contact us via WhatsApp to start
+                the process and we'll guide you through.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     FOOTER — Black
+═══════════════════════════════════════ -->
+    <footer class="uh-footer">
+      <div class="uh-marquee-wrap">
+        <div class="uh-marquee">
+          <span>Affordable Luxury</span><span>Free Shipping Over ₦50,000</span>
+          <span>New Arrivals Weekly</span><span>Members Get Early Access</span>
+          <span>Elevated Everyday Wear</span><span>Affordable Luxury</span>
+          <span>Free Shipping Over ₦50,000</span
+          ><span>New Arrivals Weekly</span> <span>Members Get Early Access</span
+          ><span>Elevated Everyday Wear</span>
+        </div>
+      </div>
+      <div class="uh-main">
+        <div class="uh-col uh-fade-up">
+          <h6>Explore</h6>
+          <ul>
+            <li>
+              <a href="about.html"><span class="arr">→</span> About</a>
+            </li>
+            <li>
+              <a href="shop.html"><span class="arr">→</span> Shop</a>
+            </li>
+            <li>
+              <a href="contact.html"><span class="arr">→</span> Contact</a>
+            </li>
+          </ul>
+        </div>
+        <div class="uh-col uh-fade-up">
+          <h6>Support</h6>
+          <ul>
+            <li>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#callUsModal"
+                ><span class="arr">→</span> Call Us</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#trackOrdersModal"
+                ><span class="arr">→</span> Track Orders</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#deliveryReturnsModal"
+                ><span class="arr">→</span> Delivery & Returns</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="uh-col uh-fade-up">
+          <h6>Connect</h6>
+          <ul>
+            <li>
+              <a href="#"><span class="arr">→</span> Instagram</a>
+            </li>
+            <li>
+              <a href="#"><span class="arr">→</span> TikTok</a>
+            </li>
+            <li>
+              <a href="#"><span class="arr">→</span> Newsletter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <span class="uh-divider"></span>
+      <div class="uh-wordmark"><h1 id="wordmark">URBANHIVE</h1></div>
+      <div class="uh-bottom">
+        <p class="uh-copy">© <em>2025</em> URBANHIVE — All rights reserved</p>
+        <p class="uh-tagline">Luxury, within reach.</p>
+        <div class="uh-socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODALS -->
+    <div class="modal fade" id="callUsModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Call Us</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            📞 <strong>Call:</strong> +234 800 123 4567<br />💬
+            <strong>WhatsApp:</strong> +234 800 987 6543<br />🕒 Mon–Sat,
+            9AM–8PM
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="trackOrdersModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Track Your Order</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <input
+              type="text"
+              class="form-control mb-2"
+              placeholder="Enter Order ID"
+            /><button class="btn btn-primary w-100">Track Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="deliveryReturnsModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delivery & Returns</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            🛍️ Lagos: 2–4 days · Nationwide: 5–7 days<br /><br />🔄 Returns
+            within 7 days in original packaging.
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      /* ── LOADER ── */
+      const loaderEl = document.getElementById("loader");
+      const loaderWd = document.getElementById("loaderWord");
+      loaderWd.innerHTML = Array.from(loaderWd.textContent)
+        .map((c, i) => `<span style="animation-delay:${i * 0.05}s">${c}</span>`)
+        .join("");
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          loaderEl.classList.add("hidden");
+          document.getElementById("contactHero").classList.add("loaded");
+        }, 100);
+      });
+
+      /* ── HEADER SCROLL ── */
+      window.addEventListener(
+        "scroll",
+        () => {
+          document
+            .getElementById("header")
+            .classList.toggle("scrolled", window.scrollY > 60);
+        },
+        { passive: true },
+      );
+
+      /* ── MOBILE NAV ── */
+      const mobileNav = document.getElementById("mobileNav");
+      document
+        .getElementById("menuToggle")
+        .addEventListener("click", () => mobileNav.classList.add("open"));
+      document
+        .getElementById("mobileClose")
+        .addEventListener("click", () => mobileNav.classList.remove("open"));
+      mobileNav
+        .querySelectorAll("a")
+        .forEach((a) =>
+          a.addEventListener("click", () => mobileNav.classList.remove("open")),
+        );
+
+      /* ── SCROLL REVEAL ── */
+      const revObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal,.reveal-left,.reveal-right")
+        .forEach((el) => revObs.observe(el));
+
+      /* ── FOOTER WORDMARK ── */
+      const wm = document.getElementById("wordmark");
+      wm.innerHTML = wm.textContent
+        .split("")
+        .map((c) => `<span class="char">${c}</span>`)
+        .join("");
+      const fuObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.style.animationPlayState = "running";
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".uh-fade-up").forEach((el) => {
+        el.style.animationPlayState = "paused";
+        fuObs.observe(el);
+      });
+
+      /* ── CHARACTER COUNT ── */
+      const msgEl = document.getElementById("f-message");
+      const charCountEl = document.getElementById("charCount");
+      if (msgEl) {
+        msgEl.addEventListener("input", () => {
+          charCountEl.textContent = msgEl.value.length;
+          charCountEl.style.color = msgEl.value.length > 700 ? "#C8501A" : "";
+        });
+      }
+
+      /* ── FORM SUBMIT ── */
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Basic validation
+          const required = [
+            "f-inquiry",
+            "f-usertype",
+            "f-name",
+            "f-email",
+            "f-phone",
+            "f-message",
+          ];
+          let valid = true;
+          required.forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el || !el.value.trim()) {
+              el.style.borderColor = "#E05A3A";
+              valid = false;
+              setTimeout(() => (el.style.borderColor = ""), 2500);
+            }
+          });
+          if (!valid) return;
+
+          // Simulate sending
+          const btn = document.getElementById("submitBtn");
+          btn.disabled = true;
+          btn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i>&nbsp; Sending...';
+
+          setTimeout(() => {
+            document.getElementById("contactForm").style.display = "none";
+            document.getElementById("formSuccess").classList.add("show");
+            // Scroll to success
+            document
+              .getElementById("formSuccess")
+              .scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 1800);
+        });
+
+      function resetForm() {
+        document.getElementById("contactForm").reset();
+        document.getElementById("contactForm").style.display = "block";
+        document.getElementById("formSuccess").classList.remove("show");
+        charCountEl.textContent = "0";
+        const btn = document.getElementById("submitBtn");
+        btn.disabled = false;
+        btn.innerHTML = 'Send Message <span class="arr">→</span>';
+      }
+
+      /* ── FAQ ACCORDION ── */
+      document.querySelectorAll(".faq-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const item = btn.closest(".faq-item");
+          const isOpen = item.classList.contains("open");
+          document
+            .querySelectorAll(".faq-item")
+            .forEach((i) => i.classList.remove("open"));
+          if (!isOpen) item.classList.add("open");
+        });
+      });
+    </script>
+  </body>
+</html>

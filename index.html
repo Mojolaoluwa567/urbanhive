@@ -1,0 +1,2951 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URBANHIVE — Affordable Luxury</title>
+    <link rel="shortcut icon" href="images/7494283.jpg" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================================
+   RESET & BASE
+============================================================ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        scrollbar-gutter: stable;
+      }
+
+      body {
+        font-family: "DM Mono", monospace;
+        --sb-thumb: #c8501a;
+        --sb-track: #fff;
+      }
+
+      body::-webkit-scrollbar {
+        width: 6px;
+      }
+      body::-webkit-scrollbar-track {
+        background: var(--sb-track);
+      }
+      body::-webkit-scrollbar-thumb {
+        background: var(--sb-thumb);
+        border-radius: 3px;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Cormorant Garamond", serif;
+      }
+      p {
+        font-family: "DM Mono", monospace;
+        font-weight: 300;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      a {
+        text-decoration: none;
+      }
+      ul {
+        list-style: none;
+      }
+
+      /* ============================================================
+   LOADING SCREEN
+============================================================ */
+      .loader {
+        position: fixed;
+        inset: 0;
+        background: #0a0a0a;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition:
+          opacity 0.8s ease,
+          visibility 0.8s ease;
+      }
+      .loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .loader__wordmark {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(3rem, 8vw, 7rem);
+        font-weight: 300;
+        letter-spacing: 0.3em;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(245, 240, 232, 0.3);
+        text-transform: uppercase;
+        overflow: hidden;
+      }
+
+      .loader__wordmark span {
+        display: inline-block;
+        animation: loaderChar 0.6s cubic-bezier(0.76, 0, 0.24, 1) both;
+      }
+
+      .loader__line {
+        width: 0;
+        height: 1px;
+        background: #c8501a;
+        margin-top: 1.5rem;
+        animation: loaderLine 1.2s 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+      }
+
+      @keyframes loaderChar {
+        from {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes loaderLine {
+        to {
+          width: 60px;
+        }
+      }
+
+      /* ============================================================
+   HEADER / NAV  — White section
+============================================================ */
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(200, 80, 26, 0.1);
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 3rem;
+        height: 70px;
+        transition: box-shadow 0.3s ease;
+      }
+      .site-header.scrolled {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      .header__brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .header__brand img {
+        height: 38px;
+        width: auto;
+      }
+      .header__brand h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: #0a0a0a;
+        text-transform: uppercase;
+      }
+
+      .header__nav ul {
+        display: flex;
+        gap: 2.5rem;
+      }
+      .header__nav a {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #0a0a0a;
+        position: relative;
+        padding-bottom: 2px;
+        transition: color 0.3s ease;
+      }
+      .header__nav a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #c8501a;
+        transition: width 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .header__nav a:hover {
+        color: #c8501a;
+      }
+      .header__nav a:hover::after {
+        width: 100%;
+      }
+
+      .header__actions {
+        display: flex;
+        gap: 1.2rem;
+        align-items: center;
+      }
+      .header__actions a {
+        color: #0a0a0a;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+      .header__actions a:hover {
+        color: #c8501a;
+      }
+
+      /* Mobile menu toggle */
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 4px;
+      }
+      .menu-toggle span {
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        background: #0a0a0a;
+        transition: all 0.3s ease;
+      }
+
+      /* ============================================================
+   TICKER  — Black section
+============================================================ */
+      .ticker-wrap {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #0a0a0a;
+        z-index: 499;
+        padding: 8px 0;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(200, 80, 26, 0.3);
+      }
+      .ticker-track {
+        display: flex;
+        gap: 4rem;
+        white-space: nowrap;
+        animation: ticker 35s linear infinite;
+      }
+      .ticker-track span {
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.7);
+      }
+      .ticker-track span .dot {
+        color: #c8501a;
+        margin: 0 1rem;
+      }
+      @keyframes ticker {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ============================================================
+   HERO  — Full black / image section
+============================================================ */
+      .hero {
+        position: relative;
+        height: 100vh;
+        min-height: 600px;
+        overflow: hidden;
+        margin-top: 95px;
+        background: #0a0a0a;
+      }
+
+      .hero__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 25%;
+        opacity: 0;
+        transition: opacity 1.5s ease;
+        filter: brightness(0.55);
+      }
+      .hero__img.loaded {
+        opacity: 1;
+      }
+
+      /* Gradient overlay */
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(10, 10, 10, 0.7) 0%,
+          rgba(10, 10, 10, 0.3) 50%,
+          rgba(200, 80, 26, 0.15) 100%
+        );
+      }
+
+      .hero__content {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 4rem 4rem 6rem;
+      }
+
+      .hero__eyebrow {
+        font-size: 9px;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: #c8501a;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s 0.3s ease;
+      }
+      .hero__eyebrow::before {
+        content: "";
+        display: block;
+        width: 28px;
+        height: 1px;
+        background: #c8501a;
+      }
+
+      .hero__title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(3.5rem, 9vw, 9rem);
+        font-weight: 300;
+        line-height: 0.92;
+        color: #f5f0e8;
+        letter-spacing: -0.02em;
+        max-width: 800px;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.7s 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+
+      .hero__title em {
+        font-style: italic;
+        color: #c8501a;
+      }
+
+      .hero__sub {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.6);
+        margin-top: 1.5rem;
+        max-width: 380px;
+        line-height: 1.7;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s 0.8s ease;
+      }
+
+      .hero__cta {
+        margin-top: 2.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s 1s ease;
+      }
+
+      .btn-primary-uh {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        background: #c8501a;
+        color: #f5f0e8;
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        padding: 1rem 2.2rem;
+        border: 1px solid #c8501a;
+        transition: all 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+        cursor: pointer;
+      }
+      .btn-primary-uh:hover {
+        background: transparent;
+        color: #c8501a;
+      }
+      .btn-primary-uh .arr {
+        transition: transform 0.3s ease;
+      }
+      .btn-primary-uh:hover .arr {
+        transform: translateX(5px);
+      }
+
+      .btn-ghost-uh {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        background: transparent;
+        color: #f5f0e8;
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        padding: 1rem 2.2rem;
+        border: 1px solid rgba(245, 240, 232, 0.3);
+        transition: all 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+        cursor: pointer;
+        margin-left: 1rem;
+      }
+      .btn-ghost-uh:hover {
+        border-color: #c8501a;
+        color: #c8501a;
+      }
+
+      .hero__badge {
+        position: absolute;
+        top: 4rem;
+        right: 4rem;
+        z-index: 2;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 1px solid rgba(200, 80, 26, 0.4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        animation: rotateBadge 12s linear infinite;
+        opacity: 0;
+        transition: opacity 0.6s 1.2s ease;
+      }
+      .hero__badge svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .hero__badge-center {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.4rem;
+        color: #c8501a;
+        z-index: 1;
+      }
+      @keyframes rotateBadge {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Hero loaded state */
+      .hero.is-loaded .hero__eyebrow,
+      .hero.is-loaded .hero__title,
+      .hero.is-loaded .hero__sub,
+      .hero.is-loaded .hero__cta,
+      .hero.is-loaded .hero__badge {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Hero scroll indicator */
+      .hero__scroll {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .hero__scroll span {
+        font-size: 8px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.4);
+      }
+      .hero__scroll-line {
+        width: 1px;
+        height: 40px;
+        background: linear-gradient(
+          to bottom,
+          rgba(200, 80, 26, 0.8),
+          transparent
+        );
+        animation: scrollLine 2s ease-in-out infinite;
+      }
+      @keyframes scrollLine {
+        0%,
+        100% {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scaleY(0.4);
+          opacity: 0.3;
+        }
+      }
+
+      /* ============================================================
+   BRAND INTRO  — Cream/Off-white section
+============================================================ */
+      .brand-intro {
+        background: #f8f5f1;
+        padding: 7rem 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .brand-intro::before {
+        content: "UH";
+        position: absolute;
+        top: -3rem;
+        right: -2rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20rem;
+        font-weight: 600;
+        color: rgba(200, 80, 26, 0.04);
+        line-height: 1;
+        user-select: none;
+        pointer-events: none;
+      }
+
+      .brand-intro__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+        align-items: center;
+      }
+
+      .brand-intro__label {
+        font-size: 9px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #c8501a;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        margin-bottom: 1.5rem;
+      }
+      .brand-intro__label::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: #c8501a;
+      }
+
+      .brand-intro__heading {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 4vw, 4.5rem);
+        font-weight: 300;
+        line-height: 1.1;
+        color: #0a0a0a;
+      }
+      .brand-intro__heading em {
+        font-style: italic;
+        color: #c8501a;
+      }
+
+      .brand-intro__body {
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        line-height: 2;
+        color: #6b6560;
+        margin-top: 2rem;
+        max-width: 440px;
+      }
+
+      .brand-intro__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-top: 2.5rem;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #0a0a0a;
+        border-bottom: 1px solid #0a0a0a;
+        padding-bottom: 3px;
+        transition:
+          color 0.3s,
+          border-color 0.3s;
+      }
+      .brand-intro__link:hover {
+        color: #c8501a;
+        border-color: #c8501a;
+      }
+
+      .brand-intro__stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .stat-card {
+        background: #fff;
+        border: 1px solid rgba(10, 10, 10, 0.06);
+        padding: 2rem 1.8rem;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+          box-shadow 0.4s ease;
+      }
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(200, 80, 26, 0.08);
+      }
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 0;
+        background: #c8501a;
+        transition: height 0.4s ease;
+      }
+      .stat-card:hover::before {
+        height: 100%;
+      }
+
+      .stat-card__number {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 3.5rem;
+        font-weight: 300;
+        color: #0a0a0a;
+        line-height: 1;
+      }
+      .stat-card__number span {
+        color: #c8501a;
+      }
+
+      .stat-card__label {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #9a9590;
+        margin-top: 0.5rem;
+      }
+
+      /* ============================================================
+   FEATURED COLLECTION  — White with editorial layout
+============================================================ */
+      .collection {
+        background: #ffffff;
+        padding: 7rem 4rem;
+      }
+
+      .collection__header {
+        max-width: 1200px;
+        margin: 0 auto 4rem;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+
+      .collection__title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 4vw, 4.5rem);
+        font-weight: 300;
+        color: #0a0a0a;
+        line-height: 1;
+      }
+      .collection__title em {
+        font-style: italic;
+        color: #c8501a;
+      }
+
+      .collection__see-all {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #9a9590;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+        transition:
+          color 0.3s,
+          border-color 0.3s;
+      }
+      .collection__see-all:hover {
+        color: #c8501a;
+        border-color: #c8501a;
+      }
+
+      .collection__grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+
+      /* Product card */
+      .p-card {
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+      }
+
+      .p-card__img-wrap {
+        position: relative;
+        overflow: hidden;
+        background: #f8f5f1;
+        aspect-ratio: 3/4;
+      }
+
+      .p-card__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+
+      .p-card:hover .p-card__img {
+        transform: scale(1.06);
+      }
+
+      .p-card__hover-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+      }
+      .p-card:hover .p-card__hover-img {
+        opacity: 1;
+      }
+
+      /* Swap image fallback via CSS custom properties */
+      .p-card__swap {
+        width: 100%;
+        height: 100%;
+        background-image: var(--img-default);
+        background-size: cover;
+        background-position: center;
+        transition:
+          background-image 0s,
+          opacity 0.6s ease;
+        position: relative;
+      }
+      .p-card__swap::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: var(--img-hover);
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+      }
+      .p-card:hover .p-card__swap::after {
+        opacity: 1;
+      }
+
+      .p-card__tag {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: #c8501a;
+        color: #fff;
+        font-size: 8px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        z-index: 2;
+      }
+
+      .p-card__overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(10, 10, 10, 0.8), transparent);
+        padding: 2rem 1.5rem 1.5rem;
+        transform: translateY(100%);
+        transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+        z-index: 3;
+      }
+      .p-card:hover .p-card__overlay {
+        transform: translateY(0);
+      }
+
+      .p-card__quick-add {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: #f5f0e8;
+        color: #0a0a0a;
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        border: none;
+        padding: 0.8rem 1.4rem;
+        cursor: pointer;
+        width: 100%;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+      .p-card__quick-add:hover {
+        background: #c8501a;
+        color: #fff;
+      }
+
+      .p-card__info {
+        padding: 1.2rem 0 0;
+      }
+
+      .p-card__name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: #0a0a0a;
+      }
+
+      .p-card__prices {
+        margin-top: 0.3rem;
+      }
+
+      .p-card__old {
+        font-size: 9px;
+        color: #9a9590;
+        text-decoration: line-through;
+        margin-right: 0.4rem;
+      }
+      .p-card__current {
+        font-size: 11px;
+        color: #c8501a;
+        font-weight: 400;
+      }
+
+      /* ============================================================
+   STORY / RISE  — Deep charcoal section
+============================================================ */
+      .story {
+        background: #111111;
+        padding: 8rem 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Decorative large letter */
+      .story::before {
+        content: '"';
+        position: absolute;
+        top: -4rem;
+        left: -2rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 30rem;
+        font-weight: 300;
+        color: rgba(200, 80, 26, 0.05);
+        line-height: 1;
+        pointer-events: none;
+      }
+
+      .story__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+      }
+
+      .story__label {
+        font-size: 9px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #c8501a;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+      }
+      .story__label::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: #c8501a;
+      }
+
+      .story__heading {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.8rem, 5vw, 5.5rem);
+        font-weight: 300;
+        line-height: 1.05;
+        color: #f5f0e8;
+      }
+      .story__heading em {
+        font-style: italic;
+        color: #c8501a;
+      }
+
+      .story__body {
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        line-height: 2.1;
+        color: rgba(245, 240, 232, 0.55);
+        margin-top: 2rem;
+      }
+
+      .story__cta {
+        margin-top: 3rem;
+      }
+
+      /* Image gallery for story */
+      .story__gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 1rem;
+      }
+
+      .story__gallery-item {
+        overflow: hidden;
+        position: relative;
+      }
+      .story__gallery-item:first-child {
+        grid-row: span 2;
+      }
+
+      .story__gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .story__gallery-item:hover img {
+        transform: scale(1.05);
+      }
+
+      .story__gallery-item--sm {
+        height: 220px;
+      }
+      .story__gallery-item--tall {
+        min-height: 460px;
+      }
+
+      /* ============================================================
+   EDITORIAL ROW  — Alternating white/cream
+============================================================ */
+      .editorial {
+        background: #ffffff;
+        padding: 6rem 4rem;
+      }
+
+      .editorial__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .editorial__row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+        padding: 5rem 0;
+        border-top: 1px solid rgba(10, 10, 10, 0.06);
+      }
+      .editorial__row:first-child {
+        border-top: none;
+      }
+
+      .editorial__row--reverse {
+        direction: rtl;
+      }
+      .editorial__row--reverse > * {
+        direction: ltr;
+      }
+
+      .editorial__img-wrap {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 4/5;
+        background: #f8f5f1;
+      }
+      .editorial__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .editorial__img-wrap:hover .editorial__img {
+        transform: scale(1.04);
+      }
+
+      .editorial__img-label {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        background: #c8501a;
+        color: #fff;
+        font-size: 8px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        padding: 5px 12px;
+      }
+
+      .editorial__text {
+        padding: 2rem 0;
+      }
+
+      .editorial__num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 5rem;
+        font-weight: 300;
+        color: rgba(200, 80, 26, 0.12);
+        line-height: 1;
+        margin-bottom: -1rem;
+      }
+
+      .editorial__heading {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2rem, 3vw, 3.2rem);
+        font-weight: 300;
+        color: #0a0a0a;
+        line-height: 1.15;
+      }
+      .editorial__heading em {
+        font-style: italic;
+        color: #c8501a;
+      }
+
+      .editorial__body {
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        line-height: 2;
+        color: #6b6560;
+        margin-top: 1.5rem;
+      }
+
+      .editorial__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-top: 2rem;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #0a0a0a;
+        position: relative;
+        padding-bottom: 3px;
+      }
+      .editorial__link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #c8501a;
+        transition: width 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .editorial__link:hover {
+        color: #c8501a;
+      }
+      .editorial__link:hover::after {
+        width: 100%;
+      }
+
+      /* ============================================================
+   TESTIMONIALS  — White section (from redesign)
+============================================================ */
+      .uh-testi {
+        background: #ffffff;
+        width: 100%;
+        padding: 7rem 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .uh-testi__label {
+        font-size: 9px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #c8501a;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.1s ease forwards;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .uh-testi__label::before {
+        content: "";
+        display: block;
+        width: 32px;
+        height: 1px;
+        background: #c8501a;
+      }
+
+      .uh-testi__heading {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        font-size: clamp(2.6rem, 5vw, 5rem);
+        line-height: 1.05;
+        color: #0a0a0a;
+        margin-bottom: 4rem;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.2s ease forwards;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .uh-testi__heading em {
+        font-style: italic;
+        color: #c8501a;
+      }
+
+      .uh-track-outer {
+        overflow: hidden;
+        position: relative;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.35s ease forwards;
+      }
+      .uh-track-outer::before,
+      .uh-track-outer::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100px;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .uh-track-outer::before {
+        left: 0;
+        background: linear-gradient(to right, #fff, transparent);
+      }
+      .uh-track-outer::after {
+        right: 0;
+        background: linear-gradient(to left, #fff, transparent);
+      }
+
+      .uh-track {
+        display: flex;
+        gap: 1.5rem;
+        transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+        will-change: transform;
+        padding: 0.5rem 0 2rem;
+      }
+
+      .uh-card {
+        flex: 0 0 420px;
+        background: #f8f5f1;
+        border: 1px solid rgba(10, 10, 10, 0.08);
+        border-radius: 2px;
+        padding: 2.8rem 2.6rem 2.4rem;
+        position: relative;
+        cursor: pointer;
+        transition:
+          transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+          box-shadow 0.5s ease,
+          border-color 0.4s ease,
+          background 0.4s ease;
+        overflow: hidden;
+      }
+      .uh-card.is-active {
+        background: #fff;
+        border-color: #c8501a;
+        box-shadow:
+          0 20px 60px rgba(200, 80, 26, 0.12),
+          0 4px 20px rgba(0, 0, 0, 0.05);
+        transform: translateY(-6px);
+      }
+      .uh-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 40px 40px 0;
+        border-color: transparent rgba(200, 80, 26, 0.18) transparent
+          transparent;
+        transition: border-color 0.4s ease;
+      }
+      .uh-card.is-active::before {
+        border-color: transparent #c8501a transparent transparent;
+      }
+      .uh-card__bg-quote {
+        position: absolute;
+        top: -0.5rem;
+        right: 1.5rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 10rem;
+        line-height: 1;
+        color: rgba(200, 80, 26, 0.08);
+        user-select: none;
+        pointer-events: none;
+        font-weight: 600;
+        transition: color 0.4s ease;
+      }
+      .uh-card.is-active .uh-card__bg-quote {
+        color: rgba(200, 80, 26, 0.12);
+      }
+
+      .uh-card__stars {
+        display: flex;
+        gap: 3px;
+        margin-bottom: 1.4rem;
+      }
+      .uh-card__stars span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #c8501a;
+        opacity: 0.3;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+      .uh-card.is-active .uh-card__stars span {
+        opacity: 1;
+      }
+      .uh-card.is-active .uh-card__stars span:nth-child(1) {
+        transition-delay: 0s;
+      }
+      .uh-card.is-active .uh-card__stars span:nth-child(2) {
+        transition-delay: 0.05s;
+        transform: scale(1.2);
+      }
+      .uh-card.is-active .uh-card__stars span:nth-child(3) {
+        transition-delay: 0.1s;
+        transform: scale(1.4);
+      }
+      .uh-card.is-active .uh-card__stars span:nth-child(4) {
+        transition-delay: 0.05s;
+        transform: scale(1.2);
+      }
+      .uh-card.is-active .uh-card__stars span:nth-child(5) {
+        transition-delay: 0s;
+      }
+
+      .uh-card__title {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 400;
+        font-size: 1.55rem;
+        color: #0a0a0a;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+        transition: color 0.3s ease;
+      }
+      .uh-card.is-active .uh-card__title {
+        color: #c8501a;
+      }
+
+      .uh-card__body {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.75;
+        margin-bottom: 2rem;
+      }
+
+      .uh-card__author {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+      }
+      .uh-card__avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(200, 80, 26, 0.18);
+        border: 1.5px solid rgba(10, 10, 10, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #c8501a;
+        transition:
+          background 0.3s ease,
+          border-color 0.3s ease;
+        flex-shrink: 0;
+      }
+      .uh-card.is-active .uh-card__avatar {
+        background: #c8501a;
+        color: #fff;
+        border-color: #c8501a;
+      }
+      .uh-card__name {
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #9a9590;
+      }
+      .uh-card__tag {
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #c8501a;
+        opacity: 0;
+        transition: opacity 0.3s ease 0.1s;
+      }
+      .uh-card.is-active .uh-card__tag {
+        opacity: 1;
+      }
+
+      .uh-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 3rem;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.5s ease forwards;
+      }
+      .uh-progress {
+        flex: 1;
+        height: 1px;
+        background: rgba(10, 10, 10, 0.08);
+        margin-right: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .uh-progress__fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: #c8501a;
+        transition: width 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .uh-dots {
+        display: flex;
+        gap: 0.5rem;
+        margin-right: 2rem;
+      }
+      .uh-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(10, 10, 10, 0.08);
+        border: 1px solid #9a9590;
+        cursor: pointer;
+        transition:
+          background 0.3s,
+          width 0.3s;
+      }
+      .uh-dot.is-active {
+        background: #c8501a;
+        border-color: #c8501a;
+        width: 18px;
+        border-radius: 3px;
+      }
+      .uh-btn-group {
+        display: flex;
+        gap: 0.6rem;
+      }
+      .uh-btn {
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(10, 10, 10, 0.08);
+        background: #fff;
+        color: #0a0a0a;
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.3s,
+          color 0.3s,
+          transform 0.2s;
+        border-radius: 2px;
+      }
+      .uh-btn:hover {
+        background: #c8501a;
+        color: #fff;
+        border-color: #c8501a;
+        transform: scale(1.05);
+      }
+      .uh-btn:active {
+        transform: scale(0.96);
+      }
+      .uh-count {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: #9a9590;
+        white-space: nowrap;
+      }
+      .uh-count strong {
+        color: #0a0a0a;
+      }
+
+      .uh-deco {
+        position: absolute;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .uh-deco--tl {
+        top: 2rem;
+        left: 0;
+        width: 120px;
+        height: 120px;
+        opacity: 0.04;
+      }
+      .uh-deco--br {
+        bottom: 2rem;
+        right: 0;
+        width: 160px;
+        height: 160px;
+        opacity: 0.04;
+      }
+
+      /* ============================================================
+   MARQUEE STRIP  — Black promo band
+============================================================ */
+      .promo-band {
+        background: #c8501a;
+        padding: 1.4rem 0;
+        overflow: hidden;
+      }
+      .promo-band__track {
+        display: flex;
+        gap: 0;
+        white-space: nowrap;
+        animation: marqueePromo 20s linear infinite;
+      }
+      .promo-band__track span {
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #f5f0e8;
+        padding: 0 3rem;
+      }
+      .promo-band__track span::before {
+        content: "✦";
+        margin-right: 3rem;
+        opacity: 0.6;
+      }
+      @keyframes marqueePromo {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ============================================================
+   FOOTER  — Black (from redesign)
+============================================================ */
+      .uh-footer {
+        background: #0a0a0a;
+        color: #f5f0e8;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+      .uh-footer::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .uh-footer > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .uh-marquee-wrap {
+        border-bottom: 1px solid rgba(200, 80, 26, 0.22);
+        overflow: hidden;
+        padding: 14px 0;
+        background: rgba(200, 80, 26, 0.06);
+      }
+      .uh-marquee {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 22s linear infinite;
+      }
+      .uh-marquee span {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #c8501a;
+        padding: 0 3rem;
+      }
+      .uh-marquee span::before {
+        content: "✦";
+        margin-right: 3rem;
+        opacity: 0.5;
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .uh-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        padding: 4rem 3rem 3rem;
+        gap: 2rem;
+        border-bottom: 1px solid rgba(200, 80, 26, 0.22);
+      }
+      .uh-col h6 {
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: #c8501a;
+        margin-bottom: 1.8rem;
+      }
+      .uh-col ul li {
+        margin-bottom: 0.9rem;
+        overflow: hidden;
+      }
+      .uh-col ul li a {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: #f5f0e8;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s;
+        position: relative;
+      }
+      .uh-col ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #c8501a;
+        transition: width 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .uh-col ul li a:hover {
+        color: #c8501a;
+      }
+      .uh-col ul li a:hover::after {
+        width: 100%;
+      }
+      .uh-col ul li a .arr {
+        opacity: 0;
+        transform: translateX(-6px);
+        font-size: 0.65rem;
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+      }
+      .uh-col ul li a:hover .arr {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .uh-wordmark {
+        padding: 2rem 3rem 0;
+        overflow: hidden;
+        line-height: 1;
+        position: relative;
+      }
+      .uh-wordmark::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 10%;
+        width: 50%;
+        height: 80%;
+        background: radial-gradient(
+          ellipse,
+          rgba(200, 80, 26, 0.08),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .uh-wordmark h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        font-size: clamp(5rem, 14vw, 14rem);
+        letter-spacing: -0.02em;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(245, 240, 232, 0.12);
+        text-transform: uppercase;
+        line-height: 0.88;
+        animation: revealWordmark 1.4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        transform: translateY(100%);
+        display: block;
+        user-select: none;
+      }
+      @keyframes revealWordmark {
+        to {
+          transform: translateY(0);
+        }
+      }
+      .uh-wordmark h1 .char {
+        display: inline-block;
+        transition:
+          color 0.2s,
+          -webkit-text-stroke 0.2s;
+        cursor: default;
+      }
+      .uh-wordmark h1:hover .char:hover {
+        color: #c8501a;
+        -webkit-text-stroke: 1px #c8501a;
+      }
+
+      .uh-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 3rem 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .uh-copy {
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #6b6560;
+      }
+      .uh-copy em {
+        color: #c8501a;
+        font-style: normal;
+      }
+
+      .uh-socials {
+        display: flex;
+        gap: 1.8rem;
+      }
+      .uh-socials a {
+        color: #6b6560;
+        font-size: 0.85rem;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .uh-socials a::before {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #c8501a;
+        transition: transform 0.3s;
+      }
+      .uh-socials a:hover {
+        color: #c8501a;
+      }
+      .uh-socials a:hover::before {
+        transform: translateX(-50%) scaleX(1);
+      }
+
+      .uh-tagline {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 0.9rem;
+        color: #6b6560;
+        letter-spacing: 0.05em;
+      }
+
+      .uh-fade-up {
+        opacity: 0;
+        transform: translateY(24px);
+        animation: fadeUp 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+      }
+      .uh-main .uh-col:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .uh-main .uh-col:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .uh-main .uh-col:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+
+      .uh-divider {
+        display: block;
+        width: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          #c8501a,
+          rgba(200, 80, 26, 0.3),
+          transparent
+        );
+        animation: lineExpand 1.2s 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        margin: 0 3rem;
+      }
+      @keyframes lineExpand {
+        to {
+          width: calc(100% - 6rem);
+        }
+      }
+
+      /* ============================================================
+   SHARED ANIMATIONS
+============================================================ */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Scroll-reveal helper */
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.9s cubic-bezier(0.76, 0, 0.24, 1),
+          transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+
+      /* ============================================================
+   MOBILE NAV OVERLAY
+============================================================ */
+      .mobile-nav {
+        position: fixed;
+        inset: 0;
+        background: #0a0a0a;
+        z-index: 600;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.4s ease,
+          visibility 0.4s ease;
+      }
+      .mobile-nav.open {
+        opacity: 1;
+        visibility: visible;
+      }
+      .mobile-nav a {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 3rem;
+        font-weight: 300;
+        color: #f5f0e8;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+      .mobile-nav a:hover {
+        color: #c8501a;
+      }
+      .mobile-nav__close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        font-size: 1.5rem;
+        color: #f5f0e8;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+      .mobile-nav__close:hover {
+        color: #c8501a;
+      }
+
+      /* ============================================================
+   RESPONSIVE
+============================================================ */
+      @media (max-width: 1024px) {
+        .brand-intro__inner {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .story__inner {
+          grid-template-columns: 1fr;
+        }
+        .story__gallery {
+          display: none;
+        }
+        .editorial__row {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .editorial__row--reverse {
+          direction: ltr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .site-header {
+          padding: 0 1.5rem;
+        }
+        .header__nav {
+          display: none;
+        }
+        .menu-toggle {
+          display: flex;
+        }
+        .collection__grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .brand-intro {
+          padding: 5rem 2rem;
+        }
+        .collection {
+          padding: 5rem 2rem;
+        }
+        .story {
+          padding: 5rem 2rem;
+        }
+        .editorial {
+          padding: 4rem 2rem;
+        }
+        .uh-testi {
+          padding: 5rem 2rem;
+        }
+        .uh-main {
+          grid-template-columns: 1fr 1fr;
+          padding: 3rem 1.5rem 2rem;
+        }
+        .uh-card {
+          flex: 0 0 320px;
+        }
+        .uh-bottom {
+          padding: 1.5rem;
+        }
+        .uh-divider {
+          margin: 0 1.5rem;
+        }
+        .collection__header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+        .hero__content {
+          padding: 2rem 2rem 4rem;
+        }
+        .hero__badge {
+          display: none;
+        }
+        .btn-ghost-uh {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .collection__grid {
+          grid-template-columns: 1fr;
+        }
+        .brand-intro__stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        .uh-main {
+          grid-template-columns: 1fr;
+        }
+        .uh-card {
+          flex: 0 0 85vw;
+        }
+        .uh-controls {
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+        .uh-progress {
+          display: none;
+        }
+        .uh-bottom {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ════════════════════════════════════════════
+     LOADER
+════════════════════════════════════════════ -->
+    <div class="loader" id="loader">
+      <div class="loader__wordmark" id="loaderWordmark">URBANHIVE</div>
+      <div class="loader__line"></div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+     MOBILE NAV OVERLAY
+════════════════════════════════════════════ -->
+    <div class="mobile-nav" id="mobileNav">
+      <button
+        class="mobile-nav__close"
+        id="mobileClose"
+        aria-label="Close menu"
+      >
+        ✕
+      </button>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="shop.html">Shop</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+    <header class="site-header" id="header">
+      <div class="header__brand">
+        <img src="images/logo.png" alt="UrbanHive" />
+        <h1>URBANHIVE</h1>
+      </div>
+      <nav class="header__nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header__actions">
+        <a href="shop.html" aria-label="Shop"><i class="far fa-heart"></i></a>
+        <a href="shop.html" aria-label="Cart"
+          ><i class="fas fa-shopping-bag"></i
+        ></a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ════════════════════════════════════════════
+     TICKER  — Black
+════════════════════════════════════════════ -->
+    <div class="ticker-wrap">
+      <div class="ticker-track" id="tickerTrack">
+        <span
+          >🔥 New arrivals dropping every week <span class="dot">·</span></span
+        >
+        <span>💸 20% off orders above ₦50,000 <span class="dot">·</span></span>
+        <span>🚚 Fast nationwide delivery <span class="dot">·</span></span>
+        <span
+          >✨ Luxury styles for less — Shop the Hive
+          <span class="dot">·</span></span
+        >
+        <span>📸 @urbanhive.clothing.store <span class="dot">·</span></span>
+        <span
+          >🎥 TikTok @urbanhiveclothingstore <span class="dot">·</span></span
+        >
+        <span
+          >🔥 New arrivals dropping every week <span class="dot">·</span></span
+        >
+        <span>💸 20% off orders above ₦50,000 <span class="dot">·</span></span>
+        <span>🚚 Fast nationwide delivery <span class="dot">·</span></span>
+        <span
+          >✨ Luxury styles for less — Shop the Hive
+          <span class="dot">·</span></span
+        >
+        <span>📸 @urbanhive.clothing.store <span class="dot">·</span></span>
+        <span
+          >🎥 TikTok @urbanhiveclothingstore <span class="dot">·</span></span
+        >
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+     HERO  — Black / image
+════════════════════════════════════════════ -->
+    <section class="hero" id="hero">
+      <img
+        src="images/sideview.jpeg"
+        class="hero__img"
+        id="heroImg"
+        alt="UrbanHive Hero"
+      />
+
+      <!-- Rotating badge -->
+      <div class="hero__badge">
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <path
+              id="circle-text"
+              d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+            />
+          </defs>
+          <text
+            font-size="9"
+            fill="rgba(200,80,26,0.7)"
+            letter-spacing="3"
+            font-family="DM Mono"
+          >
+            <textPath href="#circle-text">
+              AFFORDABLE LUXURY · URBAN HIVE ·
+            </textPath>
+          </text>
+        </svg>
+        <span class="hero__badge-center">UH</span>
+      </div>
+
+      <div class="hero__content">
+        <p class="hero__eyebrow">New Season — 2025</p>
+        <h1 class="hero__title">
+          Stay Fresh,<br />
+          Stay <em>Bold</em>
+        </h1>
+        <p class="hero__sub">
+          Your style, your statement.<br />Luxury fashion that moves with you.
+        </p>
+        <div class="hero__cta">
+          <a href="shop.html" class="btn-primary-uh">
+            Shop Collection <span class="arr">→</span>
+          </a>
+          <a href="about.html" class="btn-ghost-uh">Our Story</a>
+        </div>
+      </div>
+
+      <div class="hero__scroll">
+        <div class="hero__scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+     BRAND INTRO  — Cream
+════════════════════════════════════════════ -->
+    <section class="brand-intro">
+      <div class="brand-intro__inner">
+        <div>
+          <p class="brand-intro__label reveal">The UrbanHive Promise</p>
+          <h2 class="brand-intro__heading reveal reveal-delay-1">
+            Luxury fashion<br />
+            designed for <em>every woman,</em><br />
+            every occasion.
+          </h2>
+          <p class="brand-intro__body reveal reveal-delay-2">
+            We believe that fashion should never come with a price tag that
+            holds you back. At UrbanHive, every woman deserves the confidence
+            that comes with wearing stylish, quality pieces — without breaking
+            the bank.
+          </p>
+          <a href="about.html" class="brand-intro__link reveal reveal-delay-3">
+            Discover our story <span>→</span>
+          </a>
+        </div>
+
+        <div class="brand-intro__stats">
+          <div class="stat-card reveal">
+            <div class="stat-card__number">500<span>+</span></div>
+            <div class="stat-card__label">Happy Customers</div>
+          </div>
+          <div class="stat-card reveal reveal-delay-1">
+            <div class="stat-card__number">50<span>+</span></div>
+            <div class="stat-card__label">Style Pieces</div>
+          </div>
+          <div class="stat-card reveal reveal-delay-2">
+            <div class="stat-card__number">36<span>L</span></div>
+            <div class="stat-card__label">States Reached</div>
+          </div>
+          <div class="stat-card reveal reveal-delay-3">
+            <div class="stat-card__number">4.9<span>★</span></div>
+            <div class="stat-card__label">Average Rating</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+     COLLECTION  — White
+════════════════════════════════════════════ -->
+    <section class="collection">
+      <div class="collection__header reveal">
+        <h2 class="collection__title">Featured <em>Pieces</em></h2>
+        <a href="shop.html" class="collection__see-all">View all styles →</a>
+      </div>
+
+      <div class="collection__grid">
+        <!-- Brown Luxe -->
+        <div class="p-card reveal">
+          <div class="p-card__img-wrap">
+            <div
+              class="p-card__swap"
+              style="
+                --img-default: url(&quot;images/Brownwhite.png&quot;);
+                --img-hover: url(&quot;images/browncolored.png&quot;);
+              "
+            ></div>
+            <span class="p-card__tag">Trending</span>
+            <div class="p-card__overlay">
+              <button
+                class="p-card__quick-add"
+                onclick="location.href = 'shop.html'"
+              >
+                <i class="fas fa-shopping-bag"></i> Quick Add
+              </button>
+            </div>
+          </div>
+          <div class="p-card__info">
+            <div class="p-card__name">Brown Luxe</div>
+            <div class="p-card__prices">
+              <span class="p-card__old">₦12,000</span>
+              <span class="p-card__current">₦10,000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Blue Dream -->
+        <div class="p-card reveal reveal-delay-1">
+          <div class="p-card__img-wrap">
+            <div
+              class="p-card__swap"
+              style="
+                --img-default: url(&quot;images/Bluewhite.png&quot;);
+                --img-hover: url(&quot;images/blue colored.png&quot;);
+              "
+            ></div>
+            <span class="p-card__tag">New</span>
+            <div class="p-card__overlay">
+              <button
+                class="p-card__quick-add"
+                onclick="location.href = 'shop.html'"
+              >
+                <i class="fas fa-shopping-bag"></i> Quick Add
+              </button>
+            </div>
+          </div>
+          <div class="p-card__info">
+            <div class="p-card__name">Blue Dream</div>
+            <div class="p-card__prices">
+              <span class="p-card__old">₦15,000</span>
+              <span class="p-card__current">₦12,000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pink Glow -->
+        <div class="p-card reveal reveal-delay-2">
+          <div class="p-card__img-wrap">
+            <div
+              class="p-card__swap"
+              style="
+                --img-default: url(&quot;images/Pink white.png&quot;);
+                --img-hover: url(&quot;images/pink colored.png&quot;);
+              "
+            ></div>
+            <div class="p-card__overlay">
+              <button
+                class="p-card__quick-add"
+                onclick="location.href = 'shop.html'"
+              >
+                <i class="fas fa-shopping-bag"></i> Quick Add
+              </button>
+            </div>
+          </div>
+          <div class="p-card__info">
+            <div class="p-card__name">Pink Glow</div>
+            <div class="p-card__prices">
+              <span class="p-card__old">₦13,000</span>
+              <span class="p-card__current">₦11,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+     PROMO BAND  — Burnt orange
+════════════════════════════════════════════ -->
+    <div class="promo-band">
+      <div class="promo-band__track">
+        <span>Free Shipping Over ₦50,000</span>
+        <span>New Arrivals Every Week</span>
+        <span>Affordable Luxury</span>
+        <span>Wear Your Confidence</span>
+        <span>Be Bold · Be You</span>
+        <span>Free Shipping Over ₦50,000</span>
+        <span>New Arrivals Every Week</span>
+        <span>Affordable Luxury</span>
+        <span>Wear Your Confidence</span>
+        <span>Be Bold · Be You</span>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+     STORY / RISE  — Deep charcoal
+════════════════════════════════════════════ -->
+    <section class="story">
+      <div class="story__inner">
+        <div>
+          <p class="story__label reveal">The Rise of UrbanHive</p>
+          <h2 class="story__heading reveal reveal-delay-1">
+            Born from<br />
+            a bold <em>dream</em>
+          </h2>
+          <p class="story__body reveal reveal-delay-2">
+            It all started with a teenage girl, a bold dream, and a deep love
+            for affordable luxury. She noticed something missing in the fashion
+            space — chic, high-quality pieces that didn't break the bank,
+            especially for students like her.
+            <br /><br />
+            She wanted more than just cute clothes. She craved a wardrobe that
+            reflected confidence, ambition, and individuality — without the
+            heavy price tag. So she created UrbanHive.
+          </p>
+          <div class="story__cta reveal reveal-delay-3">
+            <a href="about.html" class="btn-primary-uh">
+              Read Our Story <span class="arr">→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="story__gallery reveal reveal-delay-2">
+          <div class="story__gallery-item story__gallery-item--tall">
+            <img src="images/Image 3.png" alt="UrbanHive model" />
+          </div>
+          <div class="story__gallery-item story__gallery-item--sm">
+            <img src="images/Image 1.png" alt="UrbanHive model" />
+          </div>
+          <div class="story__gallery-item story__gallery-item--sm">
+            <img src="images/image 2.png" alt="UrbanHive model" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+     EDITORIAL FEATURES  — White
+════════════════════════════════════════════ -->
+    <section class="editorial">
+      <div class="editorial__inner">
+        <div class="editorial__row">
+          <div class="editorial__img-wrap reveal">
+            <img
+              src="images/Artboard 1.png"
+              alt="Black set editorial"
+              class="editorial__img"
+            />
+            <span class="editorial__img-label">Own the Look</span>
+          </div>
+          <div class="editorial__text">
+            <div class="editorial__num reveal">01</div>
+            <h3 class="editorial__heading reveal reveal-delay-1">
+              Bold. Sleek.<br />
+              <em>Effortlessly you.</em>
+            </h3>
+            <p class="editorial__body reveal reveal-delay-2">
+              This black set is made to turn heads and own every moment. Style
+              it your way — heels for a night out, or sleek sneakers for an
+              elevated daytime vibe. This isn't just an outfit. It's an
+              attitude.
+            </p>
+            <a href="shop.html" class="editorial__link reveal reveal-delay-3">
+              Shop this look →
+            </a>
+          </div>
+        </div>
+
+        <div class="editorial__row editorial__row--reverse">
+          <div class="editorial__img-wrap reveal">
+            <img
+              src="images/Black crop.png"
+              alt="Crop top editorial"
+              class="editorial__img"
+            />
+            <span class="editorial__img-label">New Season</span>
+          </div>
+          <div class="editorial__text">
+            <div class="editorial__num reveal">02</div>
+            <h3 class="editorial__heading reveal reveal-delay-1">
+              Luxury<br />
+              <em>within reach.</em>
+            </h3>
+            <p class="editorial__body reveal reveal-delay-2">
+              Turn heads. Break necks. Own every moment. Every stitch, every
+              silhouette — crafted for women who know their worth and refuse to
+              compromise on style or comfort.
+            </p>
+            <a href="shop.html" class="editorial__link reveal reveal-delay-3">
+              Explore Collection →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+     TESTIMONIALS  — White (redesigned section)
+════════════════════════════════════════════ -->
+    <section class="uh-testi">
+      <svg class="uh-deco uh-deco--tl" viewBox="0 0 120 120" fill="none">
+        <line
+          x1="0"
+          y1="20"
+          x2="120"
+          y2="20"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+        <line
+          x1="0"
+          y1="40"
+          x2="120"
+          y2="40"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+        <line
+          x1="0"
+          y1="60"
+          x2="120"
+          y2="60"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+        <line
+          x1="0"
+          y1="80"
+          x2="120"
+          y2="80"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+        <line
+          x1="0"
+          y1="100"
+          x2="120"
+          y2="100"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+        <line
+          x1="20"
+          y1="0"
+          x2="20"
+          y2="120"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+        <line
+          x1="40"
+          y1="0"
+          x2="40"
+          y2="120"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+        <line
+          x1="60"
+          y1="0"
+          x2="60"
+          y2="120"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+        <line
+          x1="80"
+          y1="0"
+          x2="80"
+          y2="120"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+        <line
+          x1="100"
+          y1="0"
+          x2="100"
+          y2="120"
+          stroke="#C8501A"
+          stroke-width="1"
+        />
+      </svg>
+      <svg class="uh-deco uh-deco--br" viewBox="0 0 160 160" fill="none">
+        <circle
+          cx="80"
+          cy="80"
+          r="70"
+          stroke="#C8501A"
+          stroke-width="1"
+          stroke-dasharray="6 6"
+        />
+        <circle
+          cx="80"
+          cy="80"
+          r="50"
+          stroke="#C8501A"
+          stroke-width="1"
+          stroke-dasharray="4 4"
+        />
+        <circle cx="80" cy="80" r="30" stroke="#C8501A" stroke-width="1" />
+      </svg>
+
+      <p class="uh-testi__label">What our community says</p>
+      <h2 class="uh-testi__heading">
+        Worn with pride,<br /><em>loved every time.</em>
+      </h2>
+
+      <div class="uh-track-outer">
+        <div class="uh-track" id="track">
+          <div class="uh-card is-active">
+            <div class="uh-card__bg-quote">"</div>
+            <div class="uh-card__stars">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <h3 class="uh-card__title">Outstanding Service</h3>
+            <p class="uh-card__body">
+              "Urban Hive delivered my order earlier than expected! Fast and
+              reliable service. I've never had such a smooth shopping
+              experience."
+            </p>
+            <div class="uh-card__author">
+              <div class="uh-card__avatar">CO</div>
+              <div>
+                <p class="uh-card__name">Chidinma Okafor</p>
+                <p class="uh-card__tag">✦ Verified Buyer</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="uh-card">
+            <div class="uh-card__bg-quote">"</div>
+            <div class="uh-card__stars">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <h3 class="uh-card__title">Great Communication</h3>
+            <p class="uh-card__body">
+              "Their customer service is top-notch. I was updated every step of
+              the way. Urban Hive is simply the best!"
+            </p>
+            <div class="uh-card__author">
+              <div class="uh-card__avatar">TA</div>
+              <div>
+                <p class="uh-card__name">Tunde Adebayo</p>
+                <p class="uh-card__tag">✦ Verified Buyer</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="uh-card">
+            <div class="uh-card__bg-quote">"</div>
+            <div class="uh-card__stars">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <h3 class="uh-card__title">Exceptional Quality</h3>
+            <p class="uh-card__body">
+              "The quality of the pieces exceeded every expectation. Urban Hive
+              pays attention to every detail — the stitching, the fit,
+              everything."
+            </p>
+            <div class="uh-card__author">
+              <div class="uh-card__avatar">AO</div>
+              <div>
+                <p class="uh-card__name">Amaka Obi</p>
+                <p class="uh-card__tag">✦ Verified Buyer</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="uh-card">
+            <div class="uh-card__bg-quote">"</div>
+            <div class="uh-card__stars">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <h3 class="uh-card__title">Seamless Experience</h3>
+            <p class="uh-card__body">
+              "From order to delivery, everything was smooth. Urban Hive made
+              the entire process stress-free and I looked amazing doing it."
+            </p>
+            <div class="uh-card__author">
+              <div class="uh-card__avatar">IM</div>
+              <div>
+                <p class="uh-card__name">Ibrahim Musa</p>
+                <p class="uh-card__tag">✦ Verified Buyer</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="uh-card">
+            <div class="uh-card__bg-quote">"</div>
+            <div class="uh-card__stars">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <h3 class="uh-card__title">Highly Reliable</h3>
+            <p class="uh-card__body">
+              "Urban Hive always comes through! Their consistency is why I keep
+              coming back. Luxury doesn't have to break the bank."
+            </p>
+            <div class="uh-card__author">
+              <div class="uh-card__avatar">KB</div>
+              <div>
+                <p class="uh-card__name">Kemi Balogun</p>
+                <p class="uh-card__tag">✦ Verified Buyer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uh-controls">
+        <div class="uh-progress">
+          <div class="uh-progress__fill" id="progressFill"></div>
+        </div>
+        <div class="uh-dots" id="dots"></div>
+        <p class="uh-count">
+          <strong id="currentNum">01</strong> / <span id="totalNum">05</span>
+        </p>
+        <div class="uh-btn-group" style="margin-left: 1.5rem">
+          <button class="uh-btn" id="prevBtn" aria-label="Previous">
+            &#8592;
+          </button>
+          <button class="uh-btn" id="nextBtn" aria-label="Next">&#8594;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+     FOOTER  — Black (redesigned)
+════════════════════════════════════════════ -->
+    <footer class="uh-footer">
+      <div class="uh-marquee-wrap">
+        <div class="uh-marquee">
+          <span>Affordable Luxury</span><span>Free Shipping Over ₦50,000</span>
+          <span>New Arrivals Weekly</span><span>Members Get Early Access</span>
+          <span>Elevated Everyday Wear</span><span>Affordable Luxury</span>
+          <span>Free Shipping Over ₦50,000</span
+          ><span>New Arrivals Weekly</span> <span>Members Get Early Access</span
+          ><span>Elevated Everyday Wear</span>
+        </div>
+      </div>
+
+      <div class="uh-main">
+        <div class="uh-col uh-fade-up">
+          <h6>Explore</h6>
+          <ul>
+            <li>
+              <a href="about.html"><span class="arr">→</span> About</a>
+            </li>
+            <li>
+              <a href="shop.html"><span class="arr">→</span> Shop</a>
+            </li>
+            <li>
+              <a href="contact.html"><span class="arr">→</span> Contact</a>
+            </li>
+          </ul>
+        </div>
+        <div class="uh-col uh-fade-up">
+          <h6>Support</h6>
+          <ul>
+            <li>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#callUsModal"
+                ><span class="arr">→</span> Call Us</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#trackOrdersModal"
+                ><span class="arr">→</span> Track Orders</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#deliveryReturnsModal"
+                ><span class="arr">→</span> Delivery & Returns</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="uh-col uh-fade-up">
+          <h6>Connect</h6>
+          <ul>
+            <li>
+              <a href="#"><span class="arr">→</span> Instagram</a>
+            </li>
+            <li>
+              <a href="#"><span class="arr">→</span> TikTok</a>
+            </li>
+            <li>
+              <a href="#"><span class="arr">→</span> Newsletter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <span class="uh-divider"></span>
+
+      <div class="uh-wordmark">
+        <h1 id="wordmark">URBANHIVE</h1>
+      </div>
+
+      <div class="uh-bottom">
+        <p class="uh-copy">© <em>2025</em> URBANHIVE — All rights reserved</p>
+        <p class="uh-tagline">Luxury, within reach.</p>
+        <div class="uh-socials">
+          <a href="#" aria-label="Facebook"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+          <a href="#" aria-label="Instagram"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ════════════════════════════════════════════
+     MODALS (Bootstrap)
+════════════════════════════════════════════ -->
+    <div
+      class="modal fade"
+      id="callUsModal"
+      tabindex="-1"
+      aria-labelledby="callUsLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="callUsLabel">Call Us</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            📞 <strong>Call:</strong> +234 800 123 4567<br />💬
+            <strong>WhatsApp:</strong> +234 800 987 6543<br />🕒 Mon–Sat, 9AM –
+            8PM
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="trackOrdersModal"
+      tabindex="-1"
+      aria-labelledby="trackLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="trackLabel">Track Your Order</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Enter your order number below:<br /><br /><input
+              type="text"
+              class="form-control"
+              placeholder="Enter Order ID"
+            /><br /><button class="btn btn-primary w-100">Track Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="deliveryReturnsModal"
+      tabindex="-1"
+      aria-labelledby="deliveryLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deliveryLabel">Delivery & Returns</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            🛍️ <strong>Delivery:</strong> 1–2 business days processing. Lagos:
+            2–4 days; outside Lagos: 5–7 days.<br /><br />🔄
+            <strong>Returns:</strong> Within 7 days of delivery. Items must be
+            unused in original packaging.
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      /* ════════════════════════════════════════════
+   LOADER
+════════════════════════════════════════════ */
+      const loaderEl = document.getElementById("loader");
+      const loaderWM = document.getElementById("loaderWordmark");
+
+      // Split loader wordmark into animated chars
+      loaderWM.innerHTML = Array.from(loaderWM.textContent)
+        .map((c, i) => `<span style="animation-delay:${i * 0.06}s">${c}</span>`)
+        .join("");
+
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          loaderEl.classList.add("hidden");
+          document.getElementById("hero").classList.add("is-loaded");
+          const heroImg = document.getElementById("heroImg");
+          heroImg.classList.add("loaded");
+        }, 1800);
+      });
+
+      /* ════════════════════════════════════════════
+   HEADER SCROLL
+════════════════════════════════════════════ */
+      const hdr = document.getElementById("header");
+      window.addEventListener(
+        "scroll",
+        () => {
+          hdr.classList.toggle("scrolled", window.scrollY > 60);
+        },
+        { passive: true },
+      );
+
+      /* ════════════════════════════════════════════
+   MOBILE NAV
+════════════════════════════════════════════ */
+      const mobileNav = document.getElementById("mobileNav");
+      const menuToggle = document.getElementById("menuToggle");
+      const mobileClose = document.getElementById("mobileClose");
+
+      menuToggle.addEventListener("click", () =>
+        mobileNav.classList.add("open"),
+      );
+      mobileClose.addEventListener("click", () =>
+        mobileNav.classList.remove("open"),
+      );
+      mobileNav
+        .querySelectorAll("a")
+        .forEach((a) =>
+          a.addEventListener("click", () => mobileNav.classList.remove("open")),
+        );
+
+      /* ════════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════════ */
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
+
+      /* ════════════════════════════════════════════
+   FOOTER WORDMARK SPLIT
+════════════════════════════════════════════ */
+      const wm = document.getElementById("wordmark");
+      wm.innerHTML = wm.textContent
+        .split("")
+        .map((c) => `<span class="char">${c}</span>`)
+        .join("");
+
+      /* Footer fade-up observer */
+      const fuObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.style.animationPlayState = "running";
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document.querySelectorAll(".uh-fade-up").forEach((el) => {
+        el.style.animationPlayState = "paused";
+        fuObserver.observe(el);
+      });
+
+      /* ════════════════════════════════════════════
+   TESTIMONIALS SLIDER
+════════════════════════════════════════════ */
+      const track = document.getElementById("track");
+      const cards = Array.from(track.querySelectorAll(".uh-card"));
+      const dotsWrap = document.getElementById("dots");
+      const fill = document.getElementById("progressFill");
+      const currEl = document.getElementById("currentNum");
+      const totalEl = document.getElementById("totalNum");
+      const total = cards.length;
+      let current = 0;
+      let autoTimer = null;
+
+      totalEl.textContent = String(total).padStart(2, "0");
+
+      cards.forEach((_, i) => {
+        const d = document.createElement("button");
+        d.className = "uh-dot" + (i === 0 ? " is-active" : "");
+        d.setAttribute("aria-label", `Go to testimonial ${i + 1}`);
+        d.addEventListener("click", () => goTo(i));
+        dotsWrap.appendChild(d);
+      });
+
+      function getDots() {
+        return Array.from(dotsWrap.querySelectorAll(".uh-dot"));
+      }
+
+      function goTo(idx) {
+        cards[current].classList.remove("is-active");
+        getDots()[current].classList.remove("is-active");
+        current = (idx + total) % total;
+        cards[current].classList.add("is-active");
+        getDots()[current].classList.add("is-active");
+
+        const cardWidth = cards[0].offsetWidth + 24;
+        const outerWidth = track.parentElement.offsetWidth;
+        const offset = Math.max(
+          0,
+          cardWidth * current - (outerWidth / 2 - cardWidth / 2),
+        );
+        track.style.transform = `translateX(-${offset}px)`;
+
+        fill.style.width = ((current + 1) / total) * 100 + "%";
+        currEl.textContent = String(current + 1).padStart(2, "0");
+      }
+
+      document.getElementById("prevBtn").addEventListener("click", () => {
+        resetAuto();
+        goTo(current - 1);
+      });
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        resetAuto();
+        goTo(current + 1);
+      });
+      cards.forEach((c, i) =>
+        c.addEventListener("click", () => {
+          resetAuto();
+          goTo(i);
+        }),
+      );
+
+      function startAuto() {
+        autoTimer = setInterval(() => goTo(current + 1), 4500);
+      }
+      function resetAuto() {
+        clearInterval(autoTimer);
+        startAuto();
+      }
+
+      let startX = 0;
+      track.addEventListener("pointerdown", (e) => {
+        startX = e.clientX;
+      });
+      track.addEventListener("pointerup", (e) => {
+        const diff = startX - e.clientX;
+        if (Math.abs(diff) > 40) {
+          resetAuto();
+          goTo(current + (diff > 0 ? 1 : -1));
+        }
+      });
+
+      goTo(0);
+      startAuto();
+    </script>
+  </body>
+</html>
